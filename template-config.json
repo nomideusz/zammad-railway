@@ -1,0 +1,239 @@
+{
+  "services": {
+    "b8512d33-1e11-4026-9b2f-f01c7c74e8e4": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/zammad.svg",
+      "name": "Zammad",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/api/v1/signshow",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/nomideusz/zammad-railway",
+        "rootDirectory": "/zammad"
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "8080",
+          "description": "Port nginx listens on in front of Zammad - leave as is",
+          "isOptional": false
+        },
+        "ZAMMAD_ADMIN_EMAIL": {
+          "defaultValue": "",
+          "description": "Your email - the admin login, created on first boot",
+          "isOptional": false
+        },
+        "ZAMMAD_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(20, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Admin password, set on first boot only - copy it from here to log in, then change it in Zammad",
+          "isOptional": false
+        },
+        "ZAMMAD_ORGANIZATION": {
+          "defaultValue": "My Company",
+          "description": "Your company name, shown in Zammad and in emails. Set on first boot only",
+          "isOptional": false
+        },
+        "ZAMMAD_FQDN": {
+          "defaultValue": "${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Domain used in links and emails - set it to your custom domain when you add one",
+          "isOptional": false
+        },
+        "ZAMMAD_HTTP_TYPE": {
+          "defaultValue": "https",
+          "description": "Scheme used in links and emails",
+          "isOptional": false
+        },
+        "POSTGRESQL_HOST": {
+          "defaultValue": "${{Postgres.RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "Postgres host - private network, leave as is",
+          "isOptional": false
+        },
+        "POSTGRESQL_PORT": {
+          "defaultValue": "5432",
+          "description": "Postgres port",
+          "isOptional": false
+        },
+        "POSTGRESQL_USER": {
+          "defaultValue": "${{Postgres.POSTGRES_USER}}",
+          "description": "Postgres user - leave as is",
+          "isOptional": false
+        },
+        "POSTGRESQL_PASS": {
+          "defaultValue": "${{Postgres.POSTGRES_PASSWORD}}",
+          "description": "Postgres password - leave as is",
+          "isOptional": false
+        },
+        "POSTGRESQL_DB": {
+          "defaultValue": "${{Postgres.POSTGRES_DB}}",
+          "description": "Postgres database - leave as is",
+          "isOptional": false
+        },
+        "POSTGRESQL_DB_CREATE": {
+          "defaultValue": "false",
+          "description": "The Postgres service creates the database",
+          "isOptional": false
+        },
+        "REDIS_URL": {
+          "defaultValue": "redis://default:${{Redis.REDIS_PASSWORD}}@${{Redis.RAILWAY_PRIVATE_DOMAIN}}:6379",
+          "description": "Redis for websocket sessions - private network, leave as is",
+          "isOptional": false
+        },
+        "ELASTICSEARCH_HOST": {
+          "defaultValue": "${{Elasticsearch.RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "Elasticsearch host - private network, leave as is",
+          "isOptional": false
+        },
+        "ELASTICSEARCH_PORT": {
+          "defaultValue": "9200",
+          "description": "Elasticsearch port",
+          "isOptional": false
+        },
+        "ELASTICSEARCH_SCHEMA": {
+          "defaultValue": "http",
+          "description": "Elasticsearch scheme",
+          "isOptional": false
+        },
+        "ELASTICSEARCH_USER": {
+          "defaultValue": "elastic",
+          "description": "Elasticsearch user",
+          "isOptional": false
+        },
+        "ELASTICSEARCH_PASS": {
+          "defaultValue": "${{Elasticsearch.ELASTIC_PASSWORD}}",
+          "description": "Elasticsearch password - leave as is",
+          "isOptional": false
+        },
+        "RAILWAY_HEALTHCHECK_TIMEOUT_SEC": {
+          "defaultValue": "900",
+          "description": "First boot creates the database and search index before the health check can pass",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "30",
+          "description": "Time to finish running jobs on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      }
+    },
+    "082f4729-5d5f-4dc9-adf9-e85fdf5ae273": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/elasticsearch.svg",
+      "name": "Elasticsearch",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/nomideusz/zammad-railway",
+        "rootDirectory": "/elasticsearch"
+      },
+      "variables": {
+        "ELASTIC_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated password of the 'elastic' user",
+          "isOptional": false
+        },
+        "ES_JAVA_OPTS": {
+          "defaultValue": "-Xms512m -Xmx512m",
+          "description": "Java heap. 512 MB suits a small helpdesk; raise both values for large ticket volumes",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "30",
+          "description": "Time for Elasticsearch to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "082f4729-5d5f-4dc9-adf9-e85fdf5ae273": {
+          "mountPath": "/usr/share/elasticsearch/data"
+        }
+      }
+    },
+    "170d8d03-27db-4fca-bdb3-c2e7b1dcb892": {
+      "icon": "https://devicons.railway.app/i/postgresql.svg",
+      "name": "Postgres",
+      "build": {},
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "ghcr.io/railwayapp-templates/postgres-ssl:17"
+      },
+      "variables": {
+        "POSTGRES_DB": {
+          "defaultValue": "zammad_production",
+          "description": "Database name",
+          "isOptional": false
+        },
+        "POSTGRES_USER": {
+          "defaultValue": "zammad",
+          "description": "Database user",
+          "isOptional": false
+        },
+        "POSTGRES_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated database password",
+          "isOptional": false
+        },
+        "PGDATA": {
+          "defaultValue": "/var/lib/postgresql/data/pgdata",
+          "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for Postgres to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "170d8d03-27db-4fca-bdb3-c2e7b1dcb892": {
+          "mountPath": "/var/lib/postgresql/data"
+        }
+      }
+    },
+    "3725cfbc-82ef-4407-ac27-04eb730cee4e": {
+      "icon": "https://devicons.railway.app/i/redis.svg",
+      "name": "Redis",
+      "build": {},
+      "deploy": {
+        "startCommand": "/bin/sh -c \"exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --save '' --appendonly no\"",
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "redis:8.10.2-alpine"
+      },
+      "variables": {
+        "REDIS_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated Redis password",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      }
+    }
+  }
+}

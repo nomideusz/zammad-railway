@@ -1,0 +1,8 @@
+{
+  "name": "Zammad 7 | Open-Source Helpdesk and Ticketing with Search",
+  "short_name": "Zammad 7",
+  "description": "Zammad 7 helpdesk with Elasticsearch search and an admin ready on boot",
+  "category": "Other",
+  "image": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/zammad.svg",
+  "card_desc": "Zammad 7 helpdesk: email, chat and phone tickets in one inbox, full-text search on Elasticsearch, and the admin created on first boot."
+}

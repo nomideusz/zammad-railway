@@ -5,5 +5,6 @@
   "category": "Other",
   "image": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/zammad.svg",
   "card_desc": "Zammad 7 helpdesk: email, chat and phone tickets in one inbox, full-text search on Elasticsearch, and the admin created on first boot.",
-  "id": "d56b3579-0bbd-42ec-8825-0e3ac4f06df8"
+  "id": "d56b3579-0bbd-42ec-8825-0e3ac4f06df8",
+  "published": true
 }

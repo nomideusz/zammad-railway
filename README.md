@@ -1,6 +1,6 @@
 # Deploy and Host Zammad 7 on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/zammad-7?utm_medium=integration&utm_source=button&utm_campaign=zammad-7)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/zammad-7?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=zammad-7)
 
 [Zammad](https://zammad.org/) is the open-source helpdesk and ticketing system: email, web forms, chat, phone, WhatsApp, Telegram and social channels land in one shared inbox, with SLAs, triggers, a knowledge base and reporting on top. This template runs Zammad 7.2 with Elasticsearch for full-text search, and creates your admin account on first boot, so the setup wizard is never open to whoever finds the URL first.
 

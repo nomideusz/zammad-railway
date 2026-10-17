@@ -3,7 +3,7 @@
 # compose runs each as its own container from this same image; on Railway
 # that is five services to deploy in the right order, and every one of them
 # boots Rails just to wait for the init container.
-FROM ghcr.io/zammad/zammad:7.2.0-0006
+FROM ghcr.io/zammad/zammad:7.2.2-0011
 
 USER root
 # nginx sizes `auto` from the host's CPUs, 48 on Railway: 48 workers is

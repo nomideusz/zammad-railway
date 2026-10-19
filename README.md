@@ -30,7 +30,7 @@ The stack is four services: Zammad, Elasticsearch, Postgres and Redis.
 
 - [Zammad admin documentation](https://admin-docs.zammad.org/)
 - [Zammad user documentation](https://user-docs.zammad.org/)
-- [Template source on GitHub](https://github.com/nomideusz/zammad-railway)
+- [Template source on GitHub](https://github.com/two-workspaces/zammad)
 
 ### Implementation Details
 

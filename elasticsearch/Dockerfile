@@ -1,6 +1,6 @@
 # Zammad's search index. Settings upstream's compose passes as env vars are
 # baked in here: Railway variable names can't contain dots.
-FROM elasticsearch:9.5.3
+FROM elasticsearch:9.5.5
 
 # network.bind_host "::" makes it reachable on Railway's IPv6 private network
 # (a list with 0.0.0.0 as well is a fatal "wildcard + multiple addresses").
